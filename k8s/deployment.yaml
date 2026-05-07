@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: authentik-rights-panel
+  namespace: authentik-rights-panel
+  labels:
+    app.kubernetes.io/name: authentik-rights-panel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: authentik-rights-panel
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: authentik-rights-panel
+    spec:
+      imagePullSecrets:
+        - name: ghcr-auth
+      containers:
+        - name: web
+          image: ghcr.io/tenshi-lab-kube/authentik-rights-panel:latest
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: CONFIG_PATH
+              value: /app/config/config.json
+            - name: AUTHENTIK_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: authentik-rights-panel-secret
+                  key: AUTHENTIK_TOKEN
+                  optional: true
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 3
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 10
+            periodSeconds: 20
+          resources:
+            requests:
+              cpu: 25m
+              memory: 48Mi
+            limits:
+              cpu: 250m
+              memory: 128Mi
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: authentik-rights-panel-config
