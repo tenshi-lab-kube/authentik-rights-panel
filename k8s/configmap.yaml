@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: authentik-rights-panel-config
+  namespace: authentik-rights-panel
+data:
+  config.json: |
+    {
+      "authentik_base_url": "https://authentik.example.local",
+      "listen_addr": "0.0.0.0:8080",
+      "project_group_prefix": "project-",
+      "exclude_group_names": [
+        "authentik Admins"
+      ],
+      "projects": []
+    }
