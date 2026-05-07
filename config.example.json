@@ -1,0 +1,15 @@
+{
+  "authentik_base_url": "https://authentik.example.local",
+  "listen_addr": "127.0.0.1:8080",
+  "project_group_prefix": "project-",
+  "exclude_group_names": [
+    "authentik Admins"
+  ],
+  "projects": [
+    {
+      "name": "Projet exemple",
+      "group": "project-exemple",
+      "description": "Acces SSO au projet exemple"
+    }
+  ]
+}
