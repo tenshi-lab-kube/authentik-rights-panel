@@ -1,0 +1,12 @@
+services:
+  authentik-rights-panel:
+    build: .
+    container_name: authentik-rights-panel
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      AUTHENTIK_TOKEN: "replace-me"
+      CONFIG_PATH: "/app/config.json"
+    volumes:
+      - ./config.json:/app/config.json:ro
