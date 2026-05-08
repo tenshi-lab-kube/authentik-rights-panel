@@ -12,11 +12,11 @@ spec:
       app.kubernetes.io/name: authentik-rights-panel
   template:
     metadata:
+      annotations:
+        kubectl.kubernetes.io/restartedAt: "2026-05-08T00:35:00Z"
       labels:
         app.kubernetes.io/name: authentik-rights-panel
     spec:
-      imagePullSecrets:
-        - name: ghcr-auth
       containers:
         - name: web
           image: ghcr.io/tenshi-lab-kube/authentik-rights-panel:latest
