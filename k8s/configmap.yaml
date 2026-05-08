@@ -6,7 +6,7 @@ metadata:
 data:
   config.json: |
     {
-      "authentik_base_url": "https://authentik.example.local",
+      "authentik_base_url": "https://auth.tenshi-lab.fr",
       "listen_addr": "0.0.0.0:8080",
       "project_group_prefix": "project-",
       "exclude_group_names": [
